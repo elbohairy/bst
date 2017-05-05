@@ -1,4 +1,6 @@
-# Build a class Node. It should have a value that it stores and also links to its parent and children (if they exist). Build getters and setters for it (e.g. parent node, child node(s)).
+# Build a class Node. It should have a value that it stores and also links to
+# its parent and children (if they exist). Build getters and setters for it
+# (e.g. parent node, child node(s)).
 
 class Node
 	attr_accessor :parent_node, :rchild_node, :lchild_node, :value, :root
@@ -37,13 +39,15 @@ def build_tree arr
       if current_node.rchild_node 
         current_node = current_node.rchild_node
       else
-        # Create a node with the number, and whose parent is the root. Update the root's rchild_node
+        # Create a node with the number, and whose parent is the root. Update
+        # the root's rchild_node
         new_node = Node.new value: num, parent: current_node
         current_node.rchild_node = new_node
 
         current_node = root_node
         num = arr.shift
-        # Also, change the current_node to the root node, so that when we take the new number, we start comparisons at the root.
+        # Also, change the current_node to the root node, so that when we take
+        # the new number, we start comparisons at the root.
       end
     else
       num = arr.shift
