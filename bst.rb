@@ -3,16 +3,16 @@
 # (e.g. parent node, child node(s)).
 
 class Node
-	attr_accessor :parent_node, :rchild_node, :lchild_node, :value, :root
+  attr_accessor :parent_node, :rchild_node, :lchild_node, :value, :root
 
-	def initialize value: nil, parent: nil, left_child: nil, right_child: nil,
-                  root: false
-		@value = value
-		@parent_node = parent
-		@lchild_node = left_child
+  def initialize value: nil, parent: nil, left_child: nil, right_child: nil,
+              root: false
+    @value = value
+    @parent_node = parent
+    @lchild_node = left_child
     @rchild_node = right_child
     @root = root
-	end
+  end
 end
 
 
@@ -23,10 +23,16 @@ def build_tree arr
 
   num = arr.shift
 
+  # we loop until we've shifted all numbers from the array. We have both
+  # conditions because nil can be an element of the array.
   until num == nil and arr.size == 0
     if num < current_node.value
+      # we check to see if the current_node has a child
       if current_node.lchild_node
+        # if it does, we repeat the loop and compare num against the child.
         current_node = current_node.lchild_node
+      # this is the only time we shift a new num from arr--when
+      # we create a new leaf node 
       else
         new_node = Node.new value: num, parent: current_node
         current_node.lchild_node = new_node
@@ -62,4 +68,25 @@ def build_tree arr
 end
 
 p build_tree [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+
+def breadth_first_search root_node target
+  # takes a target value and returns the node at which it is located using the
+  # breadth first search technique. Tip: You will want to use an array acting as
+  # a queue to keep track of all the child nodes that you have yet to search and
+  # to add new ones to the list (as you saw in the video). If the target node
+  # value is not located, return nil.
   
+  # visit a node, check its value, enqueue its children, remove it from the queue
+  queue = []
+
+  current_node = root_node
+
+  if current_node.lchild_node
+    queue.push current_node.lchild_node
+  end
+
+  if current_node.rchild_node
+    queue.push current_node.lrchild_node
+  end
+end
+
