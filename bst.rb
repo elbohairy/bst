@@ -67,26 +67,38 @@ def build_tree arr
 
 end
 
-p build_tree [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+root = build_tree [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
-def breadth_first_search root_node target
+def breadth_first_search root_node, target
   # takes a target value and returns the node at which it is located using the
   # breadth first search technique. Tip: You will want to use an array acting as
   # a queue to keep track of all the child nodes that you have yet to search and
   # to add new ones to the list (as you saw in the video). If the target node
   # value is not located, return nil.
   
-  # visit a node, check its value, enqueue its children, remove it from the queue
   queue = []
 
   current_node = root_node
 
-  if current_node.lchild_node
-    queue.push current_node.lchild_node
-  end
+  queue.push current_node
 
-  if current_node.rchild_node
-    queue.push current_node.lrchild_node
+  until queue.empty?
+    current_node = queue.shift
+
+    if current_node.value == target
+      return current_node
+    elsif current_node.lchild_node and current_node.rchild_node
+      queue.push current_node.lchild_node
+      queue.push current_node.rchild_node
+    elsif current_node.lchild_node
+      queue.push current_node.lchild_node
+    elsif current_node.rchild_node
+      queue.push current_node.rchild_node
+   
+    end
+
   end
+  return nil
 end
 
+p breadth_first_search root, 67
