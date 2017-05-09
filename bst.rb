@@ -102,3 +102,12 @@ def breadth_first_search root_node, target
 end
 
 p breadth_first_search root, 67
+
+def depth_first_search
+  # returns the node at which the target value is located using the depth first
+  # search technique. Use an array acting as a stack to do this.
+  
+  # start with root, check value, then add left child to stack. Check left
+  # child, then add left child (if exists). Continue
+  
+end
