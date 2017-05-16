@@ -1,3 +1,14 @@
+# Thoughts
+# => I wish Odin Project would clearly state how much slower DFS and BFS searches
+# are for our purposes than simple binary search.
+# => For the depth_first_search, I wish they provided a few more hints as to
+# how to complete the method. E.g., is it actually necessary to have some
+# record of previously visited nodes?
+# => I didn't create a binary tree class. Perhaps a mistake. The instructions
+# don't say one way or the other, though.
+# => All in all, it was fun learning about this topic.
+
+
 # Build a class Node. It should have a value that it stores and also links to
 # its parent and children (if they exist). Build getters and setters for it
 # (e.g. parent node, child node(s)).
@@ -103,11 +114,60 @@ end
 
 p breadth_first_search root, 67
 
-def depth_first_search
+def depth_first_search root_node, target
   # returns the node at which the target value is located using the depth first
   # search technique. Use an array acting as a stack to do this.
   
-  # start with root, check value, then add left child to stack. Check left
-  # child, then add left child (if exists). Continue
-  
+  stack = []
+  # Couldn't think of a way to do this without recording which nodes
+  # have already been visited
+  visited = []
+
+  current_node = root_node
+
+  stack.unshift current_node
+
+  until stack.empty?
+
+    if current_node.lchild_node and !visited.include? current_node.lchild_node
+      current_node = current_node.lchild_node
+
+      visited.push current_node
+      stack.unshift current_node
+
+    elsif current_node.rchild_node and !visited.include? current_node.rchild_node
+      current_node = current_node.rchild_node
+
+      visited.push current_node
+      stack.unshift current_node
+
+    else
+      x = stack.shift
+      if x.value == target
+        return x
+      end
+
+      current_node = x.parent_node
+    end
+
+  end
+
+  return "nada"
+
 end
+p "nardos"
+p depth_first_search root, 67
+
+
+
+def dfs_rec node, target
+  # so sexy how short this is.
+  if node
+    puts node.value
+    return node if node.value == target
+    dfs_rec node.lchild_node, target
+    dfs_rec node.rchild_node, target
+  end
+end
+
+p dfs_rec root, 67
